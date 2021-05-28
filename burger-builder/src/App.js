@@ -1,8 +1,15 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
+import Layout from "./components/Layout/Layout";
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Layout>
+        <p>Hi Hamza</p>
+      </Layout>
+    </div>
+  );
 }
 
 export default App;
