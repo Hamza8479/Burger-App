@@ -84,7 +84,8 @@
 .Meat {
     width: 80%;
     height: 8%;
-    background: linear-gradient(#7f3608, #702e05);
+    /* background: linear-gradient(#7f3608, #702e05); */
+    background: linear-gradient(#7f0c08, #701505);
     margin: 2% auto;
     border-radius: 15px;
 }
