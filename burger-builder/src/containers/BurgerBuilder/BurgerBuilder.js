@@ -20,7 +20,22 @@ const BurgerBuilder = () => {
       meat: 0,
     },
     totalPrice: 4,
+    purchaseable: false,
   });
+
+  const updatePurchaseState = (ingredients) => {
+    // const ingred = {
+    //   ...state.ingredients,
+    // };
+    const sum = Object.keys(ingredients)
+      .map((ingKey) => {
+        return ingredients[ingKey];
+      })
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+    setSate({ purchaseable: sum > 0 });
+  };
 
   const addIngredientHandler = (type) => {
     const oldCount = state.ingredients[type];
@@ -33,7 +48,12 @@ const BurgerBuilder = () => {
     const oldPrice = state.totalPrice;
     const newPrice = oldPrice + priceAddition;
 
-    setSate({ totalPrice: newPrice, ingredients: updatedIngredients });
+    setSate({
+      totalPrice: newPrice,
+      ingredients: updatedIngredients,
+      purchaseable: true,
+    });
+    // updatePurchaseState(updatedIngredients);
   };
 
   const removeIngredientHandler = (type) => {
@@ -50,7 +70,12 @@ const BurgerBuilder = () => {
     const oldPrice = state.totalPrice;
     const newPrice = oldPrice - priceDeduction;
 
-    setSate({ totalPrice: newPrice, ingredients: updatedIngredients });
+    setSate({
+      totalPrice: newPrice,
+      ingredients: updatedIngredients,
+      purchaseable: true,
+    });
+    // updatePurchaseState(updatedIngredients);
   };
 
   const disabledInfo = {
@@ -66,6 +91,7 @@ const BurgerBuilder = () => {
         ingredientAdded={addIngredientHandler}
         ingredientRemoved={removeIngredientHandler}
         disabled={disabledInfo}
+        purchaseable={state.purchaseable}
         price={state.totalPrice}
       />
     </Auxiliary>
