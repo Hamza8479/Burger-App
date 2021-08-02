@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Auxiliary from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENTS_PRICES = {
   salad: 0.5,
@@ -12,7 +14,7 @@ const INGREDIENTS_PRICES = {
 };
 
 const BurgerBuilder = () => {
-  const [state, setSate] = useState({
+  const [state, setState] = useState({
     ingredients: {
       salad: 0,
       bacon: 0,
@@ -34,7 +36,7 @@ const BurgerBuilder = () => {
       .reduce((sum, el) => {
         return sum + el;
       }, 0);
-    setSate({ purchaseable: sum > 0 });
+    setState({ purchaseable: sum > 0 });
   };
 
   const addIngredientHandler = (type) => {
@@ -48,7 +50,7 @@ const BurgerBuilder = () => {
     const oldPrice = state.totalPrice;
     const newPrice = oldPrice + priceAddition;
 
-    setSate({
+    setState({
       totalPrice: newPrice,
       ingredients: updatedIngredients,
       purchaseable: true,
@@ -70,7 +72,7 @@ const BurgerBuilder = () => {
     const oldPrice = state.totalPrice;
     const newPrice = oldPrice - priceDeduction;
 
-    setSate({
+    setState({
       totalPrice: newPrice,
       ingredients: updatedIngredients,
       purchaseable: true,
@@ -86,6 +88,9 @@ const BurgerBuilder = () => {
   }
   return (
     <Auxiliary>
+      <Modal>
+        <OrderSummary ingredients={state.ingredients} />
+      </Modal>
       <Burger ingredients={state.ingredients} />
       <BuildControls
         ingredientAdded={addIngredientHandler}
