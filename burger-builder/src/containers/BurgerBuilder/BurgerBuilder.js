@@ -23,6 +23,7 @@ const BurgerBuilder = () => {
     },
     totalPrice: 4,
     purchaseable: false,
+    purchasing: false,
   });
 
   const updatePurchaseState = (ingredients) => {
@@ -58,6 +59,14 @@ const BurgerBuilder = () => {
     // updatePurchaseState(updatedIngredients);
   };
 
+  const purchaseHandler = () => {
+    setState({ ...state, purchasing: true });
+  };
+
+  const purchaseCancelHandler = () => {
+    setState({ ...state, purchasing: false });
+  };
+
   const removeIngredientHandler = (type) => {
     const oldCount = state.ingredients[type];
     if (oldCount <= 0) {
@@ -88,7 +97,7 @@ const BurgerBuilder = () => {
   }
   return (
     <Auxiliary>
-      <Modal>
+      <Modal show={state.purchasing} modalClosed={purchaseCancelHandler}>
         <OrderSummary ingredients={state.ingredients} />
       </Modal>
       <Burger ingredients={state.ingredients} />
@@ -97,6 +106,7 @@ const BurgerBuilder = () => {
         ingredientRemoved={removeIngredientHandler}
         disabled={disabledInfo}
         purchaseable={state.purchaseable}
+        ordered={purchaseHandler}
         price={state.totalPrice}
       />
     </Auxiliary>
