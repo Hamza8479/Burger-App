@@ -67,6 +67,10 @@ const BurgerBuilder = () => {
     setState({ ...state, purchasing: false });
   };
 
+  const purchaseContinueHandler = () => {
+    alert("You Continue!");
+  };
+
   const removeIngredientHandler = (type) => {
     const oldCount = state.ingredients[type];
     if (oldCount <= 0) {
@@ -98,7 +102,12 @@ const BurgerBuilder = () => {
   return (
     <Auxiliary>
       <Modal show={state.purchasing} modalClosed={purchaseCancelHandler}>
-        <OrderSummary ingredients={state.ingredients} />
+        <OrderSummary
+          ingredients={state.ingredients}
+          price={state.totalPrice}
+          purchaseCancelled={purchaseCancelHandler}
+          purchaseContinued={purchaseContinueHandler}
+        />
       </Modal>
       <Burger ingredients={state.ingredients} />
       <BuildControls
